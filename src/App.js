@@ -39,13 +39,17 @@ export class App{
     setupEventListeners(){
         //+ボタンクリック時
         const plusButton = document.querySelector(".plus");
-        plusButton.addEventListener("click", () => {
+        plusButton.removeEventListener("click", this.addCodeListener);
+        this.addCodeListener = () => {
             this.eventEmitter.emit("addCode");//addCodeを渡す
-        });
+        }
+        plusButton.addEventListener("click", this.addCodeListener);
         //-ボタンクリック時
         const minusButton = document.querySelector('.minus');
-        minusButton.addEventListener('click', () => {
+        minusButton.removeEventListener('click', this.removeCodeListener);
+        this.removeCodeListener = () => {
             this.eventEmitter.emit("removeCode");//removeCodeを渡す
-        });
+        };
+        minusButton.addEventListener("click", this.removeCodeListener);
     }
 }
