@@ -1,12 +1,10 @@
 import { FakeListModel } from "./model/FakeListModel.js";
 import { FakeListView } from "./view/FakeListView.js";
 import { FakeCodeModel } from "./model/FakeCodeModel.js";
-import { FakeCodeView } from "./view/FakeCodeView.js";
-import { element, render } from "./view/html-util.js";
+import { render } from "./view/html-util.js";
 import { EventEmitter } from "./EventEmitter.js";
 
 export class App{
-
     constructor(){
         this.fakeListModel = new FakeListModel();
         this.fakeListView = new FakeListView();
@@ -14,8 +12,9 @@ export class App{
 
         //addCodeを受け取ったとき
         this.eventEmitter.addEventListener("addCode", () => {
-            const randomCode = Math.random();//ランダムな数字の生成
-            const code = new FakeCodeModel(`Fake code No.${this.fakeListModel.getCodes().lengs + 1}`, randomCode);//リストの要素・コードを作成
+            const randomCode = Math.floor(Math.random() * 999999).toString().padStart(6,'0');//ランダムな6桁の数字の生成
+            const separateNumber = `${randomCode.substring(0, 3)} ${randomCode.substring(3)}`;
+            const code = new FakeCodeModel(`Fake code No.${this.fakeListModel.number}`, separateNumber);//リストの要素・コードを作成
             this.fakeListModel.addCode(code);//作成したコードの追加
             this.renderCodeList();//コードリストを表示
         });

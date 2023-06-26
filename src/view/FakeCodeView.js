@@ -6,7 +6,7 @@ export class FakeCodeView {
         const codeElement = element`
         <li>
             <h2 class="code-title">Fake code No.${code.number}</h2>
-            <p class="code-value">${code.value}</p>
+            <p class="code-value">${code.code}</p>
         </li>`;
 
         return codeElement;
