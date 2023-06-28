@@ -12,11 +12,16 @@ export class App{
 
         //addCodeを受け取ったとき
         this.eventEmitter.addEventListener("addCode", () => {
-            const randomCode = Math.floor(Math.random() * 999999).toString().padStart(6,'0');//ランダムな6桁の数字の生成
-            const separateNumber = `${randomCode.substring(0, 3)} ${randomCode.substring(3)}`;
-            const code = new FakeCodeModel(`Fake code No.${this.fakeListModel.number}`, separateNumber);//リストの要素・コードを作成
-            this.fakeListModel.addCode(code);//作成したコードの追加
-            this.renderCodeList();//コードリストを表示
+            const fakeListModel = this.fakeListModel;//リストを保持しておく
+            const updateNumber = () => {
+                const randomCode = Math.floor(Math.random() * 999999).toString().padStart(6,'0');//ランダムな6桁の数字の生成
+                const separateNumber = `${randomCode.substring(0, 3)} ${randomCode.substring(3)}`;
+                const code = new FakeCodeModel(`Fake code No.${this.fakeListModel.number}`, separateNumber);//リストの要素・コードを作成
+                this.fakeListModel.addCode(code);//作成したコードの追加
+                this.renderCodeList();//コードリストを表示
+                setTimeout(updateNumber, 5000);
+            }
+            setTimeout(updateNumber, 5000);
         });
         //removeCodeを受け取ったとき
         this.eventEmitter.addEventListener("removeCode", () => {
