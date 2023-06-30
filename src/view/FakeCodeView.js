@@ -5,8 +5,8 @@ export class FakeCodeView {
     createElement(code){
         const codeElement = element`
         <li>
-            <h2 class="code-title">Fake code No.${code.number}</h2>
-            <p class="code-value">${code.code}</p>
+            <h2 class="Number">Fake code No.${code.number}</h2>
+            <p class="code" code="${code.code}">${code.code}</p>
         </li>`;
 
         return codeElement;

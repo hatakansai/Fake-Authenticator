@@ -10,18 +10,24 @@ export class App{
         this.fakeListView = new FakeListView();
         this.eventEmitter = new EventEmitter();
 
+        const generateCode = () => {
+            const randomCode = Math.floor(Math.random() * 999999).toString().padStart(6,'0');//ランダムな6桁の数字の生成
+            const separateNumber = `${randomCode.substring(0, 3)} ${randomCode.substring(3)}`;//xxx xxxの形に成形
+            return separateNumber
+        }
+
+        const updateCode = () => {
+            const codeElements = document.querySelectorAll(".code");//コード要素の取得
+            codeElements.forEach((codeElement) => {
+                codeElement.textContent = generateCode();
+            });
+        };
+
         //addCodeを受け取ったとき
         this.eventEmitter.addEventListener("addCode", () => {
-            const fakeListModel = this.fakeListModel;//リストを保持しておく
-            const updateNumber = () => {
-                const randomCode = Math.floor(Math.random() * 999999).toString().padStart(6,'0');//ランダムな6桁の数字の生成
-                const separateNumber = `${randomCode.substring(0, 3)} ${randomCode.substring(3)}`;
-                const code = new FakeCodeModel(`Fake code No.${this.fakeListModel.number}`, separateNumber);//リストの要素・コードを作成
-                this.fakeListModel.addCode(code);//作成したコードの追加
-                this.renderCodeList();//コードリストを表示
-                setTimeout(updateNumber, 5000);
-            }
-            setTimeout(updateNumber, 5000);
+            const code = new FakeCodeModel(`Fake code No.${this.fakeListModel.number}`, generateCode());//リストの要素・コードを作成
+            this.fakeListModel.addCode(code);//作成したコードの追加
+            this.renderCodeList();//コードリストを表示
         });
         //removeCodeを受け取ったとき
         this.eventEmitter.addEventListener("removeCode", () => {
@@ -30,6 +36,10 @@ export class App{
         });
         this.renderCodeList();
         this.setupEventListeners();
+
+        setInterval(() => {
+            updateCode();
+        }, 5000);
     }
 
     renderCodeList(){

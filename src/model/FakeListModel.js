@@ -10,6 +10,10 @@ export class FakeListModel{
         return this.#codes;//現在のリストの取得
     }
 
+    getCode(codeIndex) {
+        return this.#codes[codeIndex].code;
+      }
+
     addCode(code){
         code.number = this.number++;
         this.#codes.push(code);//codeの追加
