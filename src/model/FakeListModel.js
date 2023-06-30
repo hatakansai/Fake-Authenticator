@@ -1,6 +1,6 @@
 export class FakeListModel{
     #codes;
-    #number;
+    number;
     constructor(){
         this.#codes = [];//配列の初期化
         this.number = 1;
@@ -9,10 +9,6 @@ export class FakeListModel{
     getCodes(){
         return this.#codes;//現在のリストの取得
     }
-
-    getCode(codeIndex) {
-        return this.#codes[codeIndex].code;
-      }
 
     addCode(code){
         code.number = this.number++;

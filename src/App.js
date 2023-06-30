@@ -17,10 +17,11 @@ export class App{
         }
 
         const updateCode = () => {
-            const codeElements = document.querySelectorAll(".code");//コード要素の取得
+            const codeElements = this.fakeListModel.getCodes();//コード要素の取得
             codeElements.forEach((codeElement) => {
-                codeElement.textContent = generateCode();
+                codeElement.code = generateCode();
             });
+            this.renderCodeList();
         };
 
         //addCodeを受け取ったとき
@@ -43,9 +44,7 @@ export class App{
     }
 
     renderCodeList(){
-        const fakeListElement = this.fakeListView.createElement(
-            this.fakeListModel.getCodes()
-        );
+        const fakeListElement = this.fakeListView.createElement(this.fakeListModel.getCodes());
         const containerElement = document.querySelector(".code-list");
         render(fakeListElement, containerElement);
     }
